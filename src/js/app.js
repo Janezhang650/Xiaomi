@@ -30,7 +30,6 @@ class App {
         phoneData: res.phone_data || null,
         fieldData: res.field_data || null
       }
-      console.log(this.cache);
     });
   }
 }

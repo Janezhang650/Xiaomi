@@ -11,7 +11,7 @@ class Index extends App{
   }
 
   render () {
-    new Header(this.$app).init();
+    new Header(this.$app, this.cache.fieldData, this.cache.phoneData).init();
 
     $('body').prepend(this.$app);
   }

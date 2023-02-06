@@ -5,7 +5,7 @@
   height: 55px;
   margin-top: 22px;
   background-color: #ff6700;
-  // overflow: hidden;
+  overflow: hidden;
 
   .logo-lk {
     position: absolute;
@@ -26,13 +26,13 @@
     }
 
     &::before {
-      left: 55px;
-      background: url(images/logo_1.png) center;
+      left: 0;
+      background: url(images/logo_2.png) center center;
     }
 
     &::after {
-      left: 0;
-      background: url(images/logo_2.png) center;
+      left: 55px;
+      background: url(images/logo_1.png) center center;
     }
 
     &:hover {
