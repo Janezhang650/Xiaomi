@@ -1,0 +1,42 @@
+.logo {
+  float: left;
+  position: relative;
+  width: 55px;
+  height: 55px;
+  margin-top: 22px;
+  background-color: #ff6700;
+  // overflow: hidden;
+
+  .logo-lk {
+    position: absolute;
+    top: 0;
+    left: -55px;
+    display: block;
+    width: 110px;
+    height: 100%;
+    transition: left .3s;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      width: 55px;
+      height: 55px;
+    }
+
+    &::before {
+      left: 55px;
+      background: url(images/logo_1.png) center;
+    }
+
+    &::after {
+      left: 0;
+      background: url(images/logo_2.png) center;
+    }
+
+    &:hover {
+      left: 0;
+    }
+  }
+}

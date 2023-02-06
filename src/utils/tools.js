@@ -6,7 +6,7 @@
  */
 function tplReplace (tpl, tplObj) {
   return tpl().replace(/{{(.*?)}}/g, (node, key) => {
-    return tplObj[key]
+    return tplObj[key.trim()];
   });
 }
 

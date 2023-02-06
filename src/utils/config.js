@@ -1,7 +1,7 @@
 const API = {
-  base_url: 'http://study.jspluplus.com/Xiaomi/'
+  base_url: 'http://study.jsplusplus.com/Xiaomi/'
 }
 
-module.export = {
+module.exports = {
   API
 }
