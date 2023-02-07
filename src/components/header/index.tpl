@@ -1,5 +1,5 @@
 <header class="header cover">
   <div class="container">
-    {{ logo }}{{ nav }}
+    {{ logo }}{{ nav }} {{ search }}
   </div>
 </header>
