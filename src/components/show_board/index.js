@@ -2,6 +2,8 @@ import './index.scss';
 import tpl from './tpl/board.tpl';
 import itemTpl from './tpl/item.tpl';
 
+import { NoDataTip } from '../no_data_tip';
+
 import { tplReplace } from '../../utils/tools';
 
 class ShowBoard {
@@ -17,14 +19,14 @@ class ShowBoard {
 
   render () {
     this.$el.append(tplReplace(tpl, {
-      list: this.renderList()
+      list: this.renderList(this.data) || new NoDataTip.tpl('暂无相关数据')
     }));
   }
 
-  renderList () {
+  renderList (data) {
     let list = '';
 
-    this.data.forEach((item, idx) => {
+    data.forEach((item, idx) => {
       list += tplReplace(itemTpl, {
         id: item.id,
         phone_name: item.phone_name,
