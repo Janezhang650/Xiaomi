@@ -3,6 +3,7 @@ import { Header } from '../components/header';
 import { Carousel } from '../components/carousel';
 import { BoardTitle } from '../components/board_title';
 import { ShowBoard } from '../components/show_board';
+import { Footer } from '../components/footer';
 
 class Index extends App{
   constructor ($) {
@@ -22,6 +23,7 @@ class Index extends App{
     new ShowBoard(this.$app, this.filterDatas('valuable')).init();
     new BoardTitle(this.$app, '官方推荐').init();
     new ShowBoard(this.$app, this.filterDatas('recom')).init();
+    new Footer(this.$app).init();
 
     $('body').prepend(this.$app);
   }
