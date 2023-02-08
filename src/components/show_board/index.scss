@@ -1,0 +1,50 @@
+.board {
+  .container {
+    width: 1226px;
+    margin: 0 auto;
+
+    .card-item {
+      float: left;
+      width: 234px;
+      height: 300px;
+      margin: 0 0 14px 14px;
+      padding: 20px 0;
+      background-color: #fff;
+      text-align: center;
+      box-sizing: border-box;
+      transition: box-shadow .3s;
+
+      .card-img {
+        width: 160px;
+        height: 160px;
+        margin: 0 auto 18px;
+      }
+
+      .title {
+        font-weight: bold;
+      }
+
+      .slogan {
+        color: #999;
+        font-size: 12px;
+      }
+
+      .price {
+        color: #ff6700;
+        font-size: 14px;
+      }
+
+      p {
+        margin-top: 5px;
+      }
+
+      &.first {
+        margin-left: 0;
+      }
+
+      &:hover {
+        box-shadow: 0 0 30px #ccc;
+      }
+    }
+  }
+}
