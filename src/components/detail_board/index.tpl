@@ -8,7 +8,7 @@
     <div class="right">
       <h1 class="name">{{ phone_name }}</h1>
       <p class="slogan">{{ slogan }}</p>
-      <p class="price">{{ default_price }}</p>
+      <p class="price">{{ default_price }}元起</p>
       {{ title_1 }}
       <div class="content-wrapper clearfix">{{ versions }}</div>
       {{ title_2 }}
