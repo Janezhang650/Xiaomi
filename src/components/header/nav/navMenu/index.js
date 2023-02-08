@@ -19,7 +19,8 @@ class NavMenu {
           id: item.id,
           pic: $.parseJSON(item.pics)[0][0][0],
           default_price: item.default_price,
-          isFirst: idx === 0 ? 'first': ''
+          isFirst: idx === 0 ? 'first': '',
+          phone_name: item.phone_name
         });
       }
     });
