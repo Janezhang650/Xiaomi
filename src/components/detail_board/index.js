@@ -3,6 +3,9 @@ import tpl from './index.tpl';
 
 import { DetailTitle } from './detail_title';
 import { DetailContent } from './content_item';
+import { BtnGroup } from './btn_group';
+
+import { DetailModel } from '../../models/detail';
 
 import { tplReplace } from '../../utils/tools';
 
@@ -13,6 +16,8 @@ class DetailBoard {
     this.data = data;
     this.detailTitle = new DetailTitle();
     this.detailContent = new DetailContent();
+    this.btnGroup = new BtnGroup();
+    this.detailModel = new DetailModel();
   }
 
   init () {
@@ -67,13 +72,15 @@ class DetailBoard {
       title_1: this.detailTitle.tpl('手机版本'),
       title_2: this.detailTitle.tpl('手机颜色'),
       versions: versionList,
-      colors: colorList
+      colors: colorList,
+      btnGroup: this.btnGroup.tpl()
     }));
   }
 
   bindEvent () {
     const $versions = this.$el.find('.J_versions'),
-          $colors = this.$el.find('.J_colors');
+          $colors = this.$el.find('.J_colors'),
+          $btnGroup = this.$el.find('.J_btnGroup');
 
     this.$versionItems = $versions.children('.content-item');
     this.$colorItems = $colors.children('.content-item');
@@ -81,6 +88,7 @@ class DetailBoard {
 
     $versions.on('click', '.content-item', $.proxy(this.onVersionClick, this));
     $colors.on('click', '.content-item', $.proxy(this.onColorClick, this));
+    $btnGroup.on('click', { _this: this }, this.onBtnsClick);
   }
 
   onVersionClick (event) {
@@ -95,6 +103,23 @@ class DetailBoard {
           $tar = $(e.target);
 
     this.colorChange($tar);
+  }
+
+  onBtnsClick (event) {
+    const e = event || window.event,
+          _this = e.data._this,
+          field = $(e.target).attr('data-field');
+
+    switch (field) {
+      case 'purchase':
+        _this.purchase();
+        break;
+      case 'addToCart':
+        _this.addToCart();
+        break;
+      default:
+        break;
+    }
   }
 
   // 更改手机版本与价格
@@ -117,6 +142,14 @@ class DetailBoard {
 
     this.$colorItems.eq(curIdx).addClass('current')
           .siblings().removeClass('current');
+  }
+
+  purchase () {
+    this.detailModel.purchase(this.userPhoneInfo);
+  }
+
+  addToCart () {
+    this.detailModel.addToCart(this.userPhoneInfo);
   }
 }
 
