@@ -8,10 +8,11 @@ class DetailContent {
     this.name = 'detailContent';
   }
 
-  tpl (content, price, index) {
+  tpl (content, price, pic, index) {
     return tplReplace(tpl, {
       content,
       price: price ? price + '元' : '',
+      pic,
       isCurrent: index === 0 ? 'current' : ''
     });
   }

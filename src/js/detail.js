@@ -3,6 +3,8 @@ import { Header } from '../components/header';
 import { DetailBoard } from '../components/detail_board';
 import { Footer } from '../components/footer';
 
+import { DetailModel } from '../models/detail';
+
 import { getUrlQueryValue } from '../utils/tools';
 
 class Detail extends App {
@@ -16,25 +18,22 @@ class Detail extends App {
     this.phoneId = getUrlQueryValue('id');
   }
 
-  render () {
+  async render () {
+    const data = await this.getPhoneinfo(this.phoneId);
     new Header(this.$app, this.cache.fieldData, this.cache.phoneData).init();
-    new DetailBoard(this.$app, this.getPhoneData(this.phoneId)).init();
+    new DetailBoard(this.$app, data).init();
     new Footer(this.$app).init();
 
     $('body').prepend(this.$app);
   }
 
   // 根据手机id获取相应手机信息
-  getPhoneData (id) {
-    let data = null;
+  getPhoneinfo (id) {
+    const detailModel = new DetailModel();
 
-    this.cache.phoneData.filter(item => {
-      if (item.id === id) {
-        data = item;
-      }
+    return detailModel.getPhoneInfo(id).then(res => {
+      return res;
     });
-
-    return data;
   }
 }
 

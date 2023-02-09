@@ -50,6 +50,7 @@ function throttle (fn, delay) {
 
     if (currentTime - beginTime >= delay) {
       fn.apply(_self, args);
+      beginTime = currentTime;
     } else {
       timer = setTimeout(() => {
         fn.apply(_self, args);
