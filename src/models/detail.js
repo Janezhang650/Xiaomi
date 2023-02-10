@@ -30,25 +30,44 @@ class DetailModel {
   addToCart (userPhoneInfo, callback) {
     let cartData = localStorage.getItem('cartData');
 
-    if (cartData) {
+    if (!cartData) {
+      cartData = [];
+    } else {
       cartData = $.parseJSON(cartData);
+    }
 
-      const _arr = cartData.filter(item => {
-        if (item.id === userPhoneInfo.id) {
-          if (item.version === userPhoneInfo.version && item.color === userPhoneInfo.color) {
-            return true;
-          }
+    const _cartArr = cartData.filter(item => {
+      if (item.id === userPhoneInfo.id) {
+        if (item.version === userPhoneInfo.version && item.color === userPhoneInfo.color) {
+          return true;
         }
-      });
- 
-      if (_arr.length <= 0) {
-        addDataToCart(); // 将商品加入购物车
+      }
+    });
+
+    if (_cartArr.length <= 0) {
+      let purchaseData = localStorage.getItem('purchaseData');
+
+      if (purchaseData) {
+        purchaseData = $.parseJSON(purchaseData);
+
+        const _purchaseArr = purchaseData.filter(item => {
+          if (item.id === userPhoneInfo.id) {
+            if (item.version === userPhoneInfo.version && item.color === userPhoneInfo.color) {
+              return true;
+            }
+          }
+        });
+
+        if (_purchaseArr.length <= 0) {
+          addDataToCart();
+        } else {
+          alert('您已购买过该商品。');
+        }
       } else {
-        alert('该商品已在购物车存在');
+        addDataToCart();
       }
     } else {
-      cartData = [];
-      addDataToCart(); // 将商品加入购物车
+      alert('该商品已在购物车中。')
     }
 
     function addDataToCart () {
@@ -60,7 +79,7 @@ class DetailModel {
     }
   }
 
-  purchase (userPhoneInfo, callback) {
+  purchase (userPhoneInfo, doAlert, callback) {
     let purchaseData = localStorage.getItem('purchaseData');
 
     if (purchaseData) {
@@ -77,7 +96,6 @@ class DetailModel {
       if (_arr.length <= 0) {
         addToPurchaseData(); // 购买商品
         removeInfoFromCart(); // 从购物车删除商品信息
-        alert('您已成功购买该商品。');
       } else {
         alert('您已购买了该商品。');
       }
@@ -85,7 +103,6 @@ class DetailModel {
       purchaseData = [];
       addToPurchaseData(); // 购买商品
       removeInfoFromCart(); // 从购物车删除商品信息
-      alert('您已成功购买该商品。');
     }
 
     function addToPurchaseData () {
@@ -93,6 +110,7 @@ class DetailModel {
       userPhoneInfo.orderId = setRandNum();
       purchaseData.push(userPhoneInfo);
       localStorage.setItem('purchaseData', JSON.stringify(purchaseData));
+      doAlert && alert('您已成功购买该商品。');
     }
 
     function removeInfoFromCart () {
@@ -106,9 +124,8 @@ class DetailModel {
             if (item.version === userPhoneInfo.version && item.color === userPhoneInfo.color) {
               return false;
             }
-
-            return true;
           }
+          return true;
         });
 
         localStorage.setItem('cartData', JSON.stringify(cartData));

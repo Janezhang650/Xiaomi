@@ -1,2 +1,4 @@
-<button class="total-purchase-btn J_totalPurchaseBtn" data-totalPrice="{{ totalPrice }}">结算</button>
-<span class="total-price">￥{{ totalPrice }}.00</span>
+<button class="total-purchase-btn" data-totalPrice="{{ totalPrice }}">结算</button>
+<span class="total-price">
+  ￥<span class="J_totalPrice">{{ totalPrice }}</span>.00
+</span>
