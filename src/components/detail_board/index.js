@@ -7,7 +7,7 @@ import { BtnGroup } from './btn_group';
 
 import { DetailModel } from '../../models/detail';
 
-import { tplReplace } from '../../utils/tools';
+import { tplReplace, trimSpaces } from '../../utils/tools';
 
 class DetailBoard {
   constructor (el, data) {
@@ -43,6 +43,8 @@ class DetailBoard {
 
     this.userPhoneInfo = {
       id: data.id,
+      name: data.phone_name,
+      link: window.location.href,
       version: versions[0].version,
       price: versions[0].price,
       color: data.color[0],
@@ -57,11 +59,11 @@ class DetailBoard {
         versionList = '';
 
     data.color.map((item, idx) => {
-      colorList += this.detailContent.tpl(item, null, data.pics[idx][idx][0], idx);
+      colorList += this.detailContent.tpl(item, null, data.pics[idx][idx][0], data.phone_name, idx);
     });
 
     data.version_info.map((item, idx) => {
-      versionList += this.detailContent.tpl(item.version, item.price, null, idx);
+      versionList += this.detailContent.tpl(item.version, item.price, null, data.phone_name, idx);
     });
     
     this.$el.append(tplReplace(tpl, {
@@ -93,16 +95,24 @@ class DetailBoard {
 
   onVersionClick (event) {
     const e = event || window.event,
-          $tar = $(e.target);
+          tar = e.target,
+          className = trimSpaces(tar.className),
+          $tar = $(tar);
 
-    this.versionChange($tar);
+    if (className === 'content-item') {
+      this.versionChange($tar);
+    }
   }
 
   onColorClick (event) {
     const e = event || window.event,
-          $tar = $(e.target);
+          tar = e.target,
+          className = trimSpaces(tar.className),
+          $tar = $(tar);
 
-    this.colorChange($tar);
+    if (className === 'content-item') {
+      this.colorChange($tar);
+    }
   }
 
   onBtnsClick (event) {
@@ -145,11 +155,15 @@ class DetailBoard {
   }
 
   purchase () {
-    this.detailModel.purchase(this.userPhoneInfo);
+    this.detailModel.purchase(this.userPhoneInfo, () => {
+      window.location.href = 'order.html';
+    });
   }
 
   addToCart () {
-    this.detailModel.addToCart(this.userPhoneInfo);
+    this.detailModel.addToCart(this.userPhoneInfo, () => {
+      window.location.href = 'cart.html';
+    });
   }
 }
 

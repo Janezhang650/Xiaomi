@@ -32,6 +32,24 @@ class App {
       }
     });
   }
+
+  filterDatas (field) {
+    return this.cache.phoneData.filter(item => {
+      switch (field) {
+        case 'recom':
+          return item.recom == 1;
+          break;
+        case 'new':
+          return item.new == 1;
+          break;
+        case 'valuable':
+          return item.most_value == 1;
+          break;
+        default:
+          break;
+      }
+    })
+  }
 }
 
 export { App }

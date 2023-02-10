@@ -1,6 +1,6 @@
 import config from '../utils/config';
 
-import { getDateTime } from '../utils/tools';
+import { getDateTime, setRandNum } from '../utils/tools';
 
 class DetailModel {
   getPhoneInfo (pid) {
@@ -27,7 +27,7 @@ class DetailModel {
     });
   }
 
-  addToCart (userPhoneInfo) {
+  addToCart (userPhoneInfo, callback) {
     let cartData = localStorage.getItem('cartData');
 
     if (cartData) {
@@ -43,7 +43,6 @@ class DetailModel {
  
       if (_arr.length <= 0) {
         addDataToCart(); // 将商品加入购物车
-        alert('您已成功将该商品加入购物车');
       } else {
         alert('该商品已在购物车存在');
       }
@@ -53,13 +52,15 @@ class DetailModel {
     }
 
     function addDataToCart () {
+      userPhoneInfo.goodsId = setRandNum();
       cartData.push(userPhoneInfo);
       localStorage.setItem('cartData', JSON.stringify(cartData));
-      alert('您已成功将该商品加入购物车')
+      alert('您已成功将该商品加入购物车');
+      callback && callback();
     }
   }
 
-  purchase (userPhoneInfo) {
+  purchase (userPhoneInfo, callback) {
     let purchaseData = localStorage.getItem('purchaseData');
 
     if (purchaseData) {
@@ -88,7 +89,8 @@ class DetailModel {
     }
 
     function addToPurchaseData () {
-      purchaseData.purchaseTime = getDateTime();
+      userPhoneInfo.purchaseTime = getDateTime();
+      userPhoneInfo.orderId = setRandNum();
       purchaseData.push(userPhoneInfo);
       localStorage.setItem('purchaseData', JSON.stringify(purchaseData));
     }
@@ -111,6 +113,8 @@ class DetailModel {
 
         localStorage.setItem('cartData', JSON.stringify(cartData));
       }
+      
+      callback && callback();
     }
   }
 }
